@@ -17,6 +17,10 @@ export default class Canvas {
     this.w = window.innerWidth;
     this.h = window.innerHeight;
 
+    // マウス座標
+    this.mouse = new Vector2(0.5, 0.5);
+    this.targetRadius = 0.005;// 半径の目標値
+
     // レンダラーを作成
     this.renderer = new WebGLRenderer();
     this.renderer.setSize(this.w, this.h);// 描画サイズ
@@ -33,13 +37,30 @@ export default class Canvas {
     this.scene = new Scene();
 
     // 平面をつくる（幅, 高さ, 横分割数, 縦分割数）
-    const geo = new PlaneGeometry(2, 2, 10, 10);
+    const geo = new PlaneGeometry(2, 2, 20, 10);
+
+    // uniform変数を定義
+    this.uniforms = {
+      uAspect: {
+        value: this.w / this.h
+      },
+      uTime: {
+        value: 0.0
+      },
+      uMouse: {
+        value: new Vector2(0.5, 0.5)// this.mouse とは別のベクトル
+      },
+      uRadius: {
+        value: this.targetRadius
+      }
+    };
 
     // シェーダーソースを渡してマテリアルを作成
     const mat = new ShaderMaterial({
+      uniforms: this.uniforms,
       vertexShader: vertexSource,
       fragmentShader: fragmentSource,
-      wireframe: true
+      wireframe: false
     });
 
     this.mesh = new Mesh(geo, mat);
@@ -58,7 +79,29 @@ export default class Canvas {
     // ミリ秒から秒に変換
     const sec = performance.now() / 1000;
 
+    this.uniforms.uTime.value = sec;// シェーダーに渡す時間を更新
+
+    // シェーダーに渡すマウスを更新
+    this.uniforms.uMouse.value.lerp(this.mouse, 0.2);
+
+    // シェーダーに渡す半径を更新
+    this.uniforms.uRadius.value += (this.targetRadius - this.uniforms.uRadius.value) * 0.2;
+
     // 画面に表示
     this.renderer.render(this.scene, this.camera);
+  }
+
+  mouseMoved(x, y) {
+    // 左上原点から左下原点に変換
+    this.mouse.x = x / this.w;
+    this.mouse.y = 1.0 - (y / this.h);
+  }
+  mousePressed(x, y) {
+    this.mouseMoved(x, y);
+    this.targetRadius = 0.25;// マウスを押したら半径の目標値を大きく
+  }
+  mouseReleased(x, y) {
+    this.mouseMoved(x, y);
+    this.targetRadius = 0.005;// マウスを押したら半径の目標値をデフォルト値に
   }
 };
