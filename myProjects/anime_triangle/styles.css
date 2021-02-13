@@ -1,0 +1,35 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div {
+
+}
+
+.demo-wrapper {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+}
+
+.triangle {
+    position: relative;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+    transform: rotate(180deg);
+    transform-origin: center;
+}
+
+.tri {
+    position: relative;
+    color: #ffffff;
+    transform: rotate(180deg);
+    transform-origin: center;
+}
