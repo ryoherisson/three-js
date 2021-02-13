@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Anime Sample</title>
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+        <div class="demo-wrapper">
+            <input id="demo-input" value=0>
+            <div class="square"></div>
+        </div>
+        <div class="square-set-wrapper">
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+            <div class="square-set"></div>
+        </div>
+        <script>
+            let tl =anime.timeline({
+                duration: 750,
+                loop: true,
+                direction: 'alternate'
+            });
+
+            tl.add({
+                targets: '.square',
+                keyframes: [
+                    {translateY: -40, scale: 1},
+                    {translateX: 250, scale: 1.5},
+                    {translateY: 40, scale: 2.0, rotateZ: 3600},
+                    {translateX: 0, scale: 1.0},
+                    {translateY: 0, scale: 1.0},
+                ],
+                duration: 2000,
+                delay: 100,
+                loop: true,
+            }).add({
+                targets: '#demo-input',
+                value: [0, 100],
+                duration: 5000,
+                round: 1,
+                easing: 'linear',
+                direction: 'alternate',
+                loop: true
+            }).add({
+                targets: '.square-set',
+                translateX: anime.stagger(10, {grid:[12, 4], from: 'center', axis: 'x'}),
+                translateY: anime.stagger(10, {grid:[12, 4], from: 'center', axis: 'y'}),
+                rotateZ: anime.stagger([0, 90], {grid:[12, 4], from: 'center', axis: 'x'}),
+                delay: anime.stagger(200, {grid:[12, 4], from: 'center'}),
+                loop: true,
+                direction: 'alternate',
+                easing: 'easeInOutQuad'
+            });
+        </script>
+    </body>
+</html>

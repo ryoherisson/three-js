@@ -1,0 +1,40 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+ }
+
+.demo-wrapper {
+
+}
+
+.square {
+    width: 20px;
+    height: 20px;
+    background-color: #000000;
+}
+
+.square-set-wrapper {
+    width: 280px;
+    height: 60px;
+}
+
+.square-set {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 1px;
+    background-color: #008080;
+}
